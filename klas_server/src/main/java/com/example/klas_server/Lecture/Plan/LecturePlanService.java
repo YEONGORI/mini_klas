@@ -9,7 +9,6 @@ import java.util.List;
 public class LecturePlanService {
     @Autowired
     private LecturePlanRepository lecturePlanRepository;
-    @Autowired
 
 
 
@@ -23,7 +22,6 @@ public class LecturePlanService {
         try {
 
             List<LecturePlanDTO> list = lecturePlanRepository.findAll();
-            
             return list;
         } catch (Exception e) {
             e.printStackTrace();

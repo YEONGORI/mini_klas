@@ -21,6 +21,6 @@ public class LecturePlanDTO {
     @Column(name = "evaluation_ratio")
     private String evaluation_ratio;
     @Column(name = "textbook")
-    private Date textbook;
+    private String textbook;
 
 }

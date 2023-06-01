@@ -23,11 +23,20 @@ public class LecturePlanController {
             if (result.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @PostMapping("/listforstudent")
+    public ResponseEntity<HttpStatus> registerLecturePlans(@RequestBody LecturePlanDTO info)
+    {
+        try{
+            lecturePlanService.saveLecturePlan(info);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
     }
 
