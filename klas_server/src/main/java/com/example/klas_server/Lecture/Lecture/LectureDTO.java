@@ -1,6 +1,7 @@
 package com.example.klas_server.Lecture.Lecture;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +10,13 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "com/example/klas_server/Lecture")
+@Table(name = "lecture")
 public class LectureDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    private int professor_id;
+
     @Column(name = "name")
     private String name;
     @Column(name = "day_of_week")
@@ -26,4 +28,8 @@ public class LectureDTO {
     private Date end_time;
     @Column(name = "type")
     private String type;
+
+    @Column(name = "limit")
+    private int limit;
+
 }

@@ -22,6 +22,7 @@ public class LecturePlanService {
         try {
 
             List<LecturePlanDTO> list = lecturePlanRepository.findAll();
+
             return list;
         } catch (Exception e) {
             e.printStackTrace();
