@@ -1,4 +1,4 @@
-package Lecture.Data;
+package com.example.klas_server.Lecture.Lecture;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "Lecture")
-public class lectureDTO {
+@Table(name = "com/example/klas_server/Lecture")
+public class LectureDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
