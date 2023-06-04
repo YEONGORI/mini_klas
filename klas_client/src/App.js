@@ -1,8 +1,9 @@
-import "./App.css";
-import Router from "./Router";
+import React from "react";
+import Router from "./Router.js";
+
 function App() {
   return (
-    <div>
+    <div class="font-[GmarketSansMedium]">
       <Router />
     </div>
   );

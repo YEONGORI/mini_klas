@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "lecture")
 public class LectureDTO {
     @Id
@@ -17,19 +19,25 @@ public class LectureDTO {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
-    @Column(name = "day_of_week")
-    private String day_of_week;
+    @Column(name = "lecturename")
+    private String lecturename;
 
-    @Column(name = "start_time")
-    private Date start_time;
-    @Column(name = "end_time")
-    private Date end_time;
+    @Column(name = "time")
+    private String time;
     @Column(name = "type")
     private String type;
 
     @Column(name = "limit")
     private int limit;
+
+    @Column(name = "professor")
+    private String professor;
+
+    @Column(name = "credit")
+    private String credit;
+
+    @Column(name = "contact")
+    private String contact;
+
 
 }
