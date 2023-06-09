@@ -16,13 +16,16 @@ public class LecturePlanService {
         return (LecturePlanDTO) lecturePlanRepository.save(lecturePlan);
     }
 
+    public LecturePlanDTO getLecturePlanDetail(String lectureId){
+        return null;
+        //return lecturePlanRepository.findByLectureId(lectureId);
+    }
 
     public List<LecturePlanDTO> printPlanListForStudent() {
 
         try {
 
             List<LecturePlanDTO> list = lecturePlanRepository.findAll();
-
             return list;
         } catch (Exception e) {
             e.printStackTrace();
