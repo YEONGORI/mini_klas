@@ -1,9 +1,9 @@
 import React from "react";
-import Router from "./Router.js";
+import Router from "./router.js";
 
 function App() {
   return (
-    <div class="font-[GmarketSansMedium]">
+    <div className="font-[GmarketSansMedium]">
       <Router />
     </div>
   );

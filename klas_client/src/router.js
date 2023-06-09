@@ -6,14 +6,15 @@ import SignInPage from "./pages/User/SignInPage";
 import HomePage from "./pages/Home/HomePage";
 import Navigation from "./components/Navigation";
 import LecturePlanListPage from "./pages/LecturePlan/LecturePlanListPage";
+import LecturePlanDetailPage from "./pages/LecturePlan/LecturePlanDetailPage";
 
 function Router() {
   const [type, setType] = useState(1); //0은 비회원 1은 학생 2는 교수 3은 관리자
   return (
-    <div class="flex flex-col h-screen">
+    <div className="flex flex-col h-screen">
       <BrowserRouter>
         {type === 0 ? (
-          <div class="h-[5%] ">
+          <div className="h-[5%] ">
             <Navigation />
           </div>
         ) : (
@@ -27,6 +28,7 @@ function Router() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/lecture/plan">
             <Route path="list" element={<LecturePlanListPage />} />
+            <Route path="detail" element={<LecturePlanDetailPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

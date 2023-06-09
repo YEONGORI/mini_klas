@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const p_navbar = styled.nav`
-    position: fixed;
     z-index: 50;
     z-index: var(--nav-index);
     width: 100%;
