@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Input from "../../components/Input";
 import * as S from './LecturePlanDetailPageStyle'
 import axios from "axios";
 
@@ -128,9 +127,20 @@ const LecturePlanDetail = () => {
                     </td>
                     </tr>
                     <tr>
-                    <th>교재</th>
-                    <td>{detail.textbook}</td>
+                        <th>교재</th>
+                        <td>{detail.textbook}</td>
                     </tr>
+                    <tr>
+                        <th>목표</th>
+                        <td>{detail.goal}</td>
+                    </tr>
+                    <tr>
+                        <th>원격여부</th>
+                        {detail.remote===true
+                        ?<td>원격수업</td>
+                        :<td>대면수업</td>}
+                    </tr>
+                    
                 </tbody>
                 </table>
             </div>)}
