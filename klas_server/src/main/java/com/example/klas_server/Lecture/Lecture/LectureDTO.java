@@ -39,5 +39,8 @@ public class LectureDTO {
     @Column(name = "contact")
     private String contact;
 
+    @Column(name = "coursequota")
+    private int coursequota;
+
 
 }

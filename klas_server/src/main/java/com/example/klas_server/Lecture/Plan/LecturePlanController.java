@@ -23,18 +23,19 @@ public class LecturePlanController {
             List<LecturePlanDTO> result = lecturePlanService.printPlanListForStudent();
             if (result.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("/lectureDetail")
-    public ResponseEntity <LecturePlanDTO> getLecturePlanDetail(@RequestBody String data)
+    @PostMapping("/lectureDetail")
+    public ResponseEntity <LecturePlanDTO> getLecturePlanDetail(@RequestBody LecturePlanDTO data)
     {
         try {
             System.out.println(data);
 
-            LecturePlanDTO result = lecturePlanService.getLecturePlanDetail(data);
+            LecturePlanDTO result = lecturePlanService.getLecturePlanDetail(data.getLectureid());
             if (result.equals(""))
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             return new ResponseEntity<>(result, HttpStatus.OK);

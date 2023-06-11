@@ -18,8 +18,8 @@ public class LecturePlanDTO {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "lecture_id")
-    private int lecture_id;
+    @Column(name = "lectureid")
+    private int lectureid;
 
     @Column(name = "summary")
     private String summary;
@@ -42,6 +42,13 @@ public class LecturePlanDTO {
     private int quizratio;
     @Column(name = "textbook")
     private String textbook;
+
+    @Column(name = "remote")
+    private boolean remote;
+
+    @Column(name = "goal")
+    private String goal;
+
 
     @OneToOne
     @JoinTable(name = "Lecture",

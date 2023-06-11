@@ -16,9 +16,9 @@ public class LecturePlanService {
         return (LecturePlanDTO) lecturePlanRepository.save(lecturePlan);
     }
 
-    public LecturePlanDTO getLecturePlanDetail(String lectureId){
-        return null;
-        //return lecturePlanRepository.findByLectureId(lectureId);
+    public LecturePlanDTO getLecturePlanDetail(int lectureId){
+
+        return lecturePlanRepository.findByLectureid(lectureId);
     }
 
     public List<LecturePlanDTO> printPlanListForStudent() {
