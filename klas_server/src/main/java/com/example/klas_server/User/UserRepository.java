@@ -2,5 +2,8 @@ package com.example.klas_server.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-interface UserRepository extends JpaRepository<User, Long> {
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+    User findById(int id);
+
 }

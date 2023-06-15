@@ -19,9 +19,11 @@ public class LectureService {
     public List<LectureDTO> printLectureList() {
 
         try {
-
+            System.out.println("asdfdsafasdfasd11");
             List<LectureDTO> list = lectureRepository.findAll();
-
+            System.out.println("asdfdsafasdfasd22");
+            System.out.println(list);
+            System.out.println("asdfdsafasdfasd33");
             return list;
         } catch (Exception e) {
             e.printStackTrace();

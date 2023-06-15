@@ -1,27 +1,35 @@
 package com.example.klas_server.User;
 
+import com.example.klas_server.Lecture.Register.LectureRegisterDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@ToString(exclude = "lecture")
+@NoArgsConstructor
+public class User {
     @Column(nullable = false)
     private String name;
+    @Id
     @Column(nullable = false, name = "userid")
     private Integer userId;
     @Column(nullable = false)
     private String password;
     @Column(nullable = false, name = "usertype")
     private UserType userType;
+
+    @OneToMany(mappedBy = "user")
+    private List<LectureRegisterDTO> lecture;
+
 
     public User(final String name, final Integer userId, final String password, final UserType userType) {
         Assert.hasText(name, "이름은 필수입니다.");
@@ -34,4 +42,5 @@ class User {
         this.password = password;
         this.userType = userType;
     }
+
 }

@@ -38,8 +38,6 @@ public class LectureController {
     {
 
         try {
-            if(data.getLecturename()=="수학")
-                System.out.println("OK");
             List<LectureDTO> result = lectureService.printLectureListByParameter(data);
             if (result.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -48,5 +46,6 @@ public class LectureController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 }

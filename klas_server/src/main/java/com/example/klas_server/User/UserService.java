@@ -23,4 +23,22 @@ class UserService {
         userPort.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PostMapping("/me")
+    public ResponseEntity<Integer> CheckSession(@RequestBody final User usersession){
+
+
+        int sessionid = usersession.getUserId();
+        try {
+            int checked = userPort.checkId(sessionid);
+            if (checked == 0)
+                return new ResponseEntity<>(0, HttpStatus.OK);
+            else if(checked ==1)
+                return new ResponseEntity<>(1, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }catch(Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
