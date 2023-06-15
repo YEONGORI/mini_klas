@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -23,27 +25,41 @@ public class LectureRegisterService {
     @Autowired
     private UserRepository userRepository;
 
-    public Boolean register(LectureRegisterDTO data)
+    public int register(LectureRegisterDTO data)
     {
-        System.out.println("hihihihasdfasdf11");
+
         int lectureid = data.getLectureDTO().getId();
         int userid = data.getUser().getUserId();
-        System.out.println("hihihihasdfasdf11");
-        LectureDTO lecture = lectureRepository.findById(lectureid);
-        System.out.println("hihihihasdfasdf222");
-        User user = userRepository.findById(userid);
-        System.out.println("hihihihasdfasdf333");
-        int coursequota = lecture.getCoursequota();
-        int limit = lecture.getLimit();
+
+        LectureDTO targetlecture = lectureRepository.findById(lectureid);
+        Optional<User> check = userRepository.findByUserId(userid);
+        User user = check.get();
+        List<LectureRegisterDTO> lecturelist = lectureRegisterRepository.findByUser(user);
+
+        boolean checked = Dupchecked(lecturelist, lectureid);
+        if(checked)//중복될 경우
+            return 0;
+        int coursequota = targetlecture.getCoursequota();
+        int limit = targetlecture.getLimit();
+
 
         System.out.println(data);
         if(coursequota<limit){
             System.out.println("hihihih");
-            lectureRegisterRepository.save(new LectureRegisterDTO(user, lecture));
-            return true;
+            targetlecture.setCoursequota(targetlecture.getCoursequota()+1);
+            lectureRegisterRepository.save(new LectureRegisterDTO(user, targetlecture));
+            return 1;//수강신청 성공
         }
         System.out.println("hihihihasdfasdf");
-        return false;
+        return 2;//강의 만석
+    }
+
+    boolean Dupchecked(List<LectureRegisterDTO> list, int lectureid){
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).getLectureDTO().getId()==lectureid)//duplicate
+                return true;
+        }
+        return false;//not duplicate
     }
 
 }

@@ -2,8 +2,6 @@ package com.example.klas_server.Lecture.Register;
 
 import com.example.klas_server.Lecture.Lecture.LectureDTO;
 import com.example.klas_server.User.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

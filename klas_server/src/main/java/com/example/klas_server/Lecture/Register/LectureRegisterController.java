@@ -22,10 +22,14 @@ public class LectureRegisterController {
         System.out.println(data.getLectureDTO().toString());
         System.out.println(data.getUser());
         try {
-            Boolean result = lectureRegisterService.register(data);
-            if (!result)
-                return new ResponseEntity<>(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);
-            return new ResponseEntity<>(HttpStatus.OK);
+            int result = lectureRegisterService.register(data);
+            if (result==2)
+                return new ResponseEntity<>(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);//만석
+            else if(result==1)
+                return new ResponseEntity<>(HttpStatus.OK);//수강 완료
+            else if(result==0)
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);//수강 중복
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
