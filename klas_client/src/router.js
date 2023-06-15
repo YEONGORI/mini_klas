@@ -7,6 +7,7 @@ import HomePage from "./pages/Home/HomePage";
 import Navigation from "./components/Navigation";
 import LecturePlanListPage from "./pages/LecturePlan/LecturePlanListPage";
 import LecturePlanDetailPage from "./pages/LecturePlan/LecturePlanDetailPage";
+import LectureRegisterPage from "./pages/Register/LectureRegisterPage";
 
 function Router() {
   const [type, setType] = useState(1); //0은 비회원 1은 학생 2는 교수 3은 관리자
@@ -30,6 +31,7 @@ function Router() {
             <Route path="list" element={<LecturePlanListPage />} />
             <Route path="detail" element={<LecturePlanDetailPage />} />
           </Route>
+          <Route path="/register" element={<LectureRegisterPage />}/>
         </Routes>
       </BrowserRouter>
     </div>
