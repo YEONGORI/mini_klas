@@ -30,13 +30,23 @@ class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> SignInUser(@RequestBody final User req) {
+    public ResponseEntity<Integer> SignInUser(@RequestBody final User req) {
         try {
             System.out.println(req.getUserId()+ "+" + req.getPassword());
-            //String token = userService.SignIn(req);
+            String token = userService.SignIn(req);
             HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + token);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).build();
+            headers.set("Authorization", "Bearer " + token);
+
+
+            int checked = userService.checkId(req.getUserId());
+            System.out.println(checked);
+            if (checked == 0)
+                return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(0);
+
+            else if(checked ==1)
+                return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(1);
+            else
+                return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(2);
         } catch (UserIdNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (JpaSystemException e) {
@@ -44,31 +54,28 @@ class UserController {
         }
     }
 
-    @GetMapping(value = "/kakao")
-    public ResponseEntity<Void> SignInKakao(@RequestBody final SignInKakaoRequest req, @RequestBody HttpServletResponse res) {
-        userService.KakaoSignIn(req, res);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//        try {
-//            userService.KakaoSignIn(req, res);
-//            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//        } catch (JsonProcessingException e) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
+    @PostMapping(value = "/kakao")
+
+    public ResponseEntity<Void> SignInKakao(@RequestBody final SignInKakaoRequest req) {
+        String token = userService.KakaoSignIn(req);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + token);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).build();
     }
 
     @PostMapping("/me")
     public ResponseEntity<Integer> CheckSession(@RequestBody final User usersession){
 
-
         int sessionid = usersession.getUserId();
+        System.out.println("hihi");
         try {
             int checked = userService.checkId(sessionid);
             if (checked == 0)
-                return new ResponseEntity<>(0, HttpStatus.OK);
+                return ResponseEntity.ok(0);
             else if(checked ==1)
-                return new ResponseEntity<>(1, HttpStatus.OK);
+                return ResponseEntity.ok(1);
             else
-                return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }catch(Exception e){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

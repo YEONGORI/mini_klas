@@ -1,7 +1,11 @@
 package com.example.klas_server.User;
 
+import com.example.klas_server.Board.BoardDTO;
+import com.example.klas_server.Lecture.Register.LectureRegisterDTO;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +24,12 @@ public class User {
     private String password;
     @Column(nullable = false, name = "usertype")
     private UserType userType;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<LectureRegisterDTO> lectureRegisterDTOList;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<BoardDTO> BoardDTOList;
 //
 //    public User(final String name, final Integer userId, final String password, final UserType userType) {
 //        Assert.hasText(name, "이름은 필수입니다.");

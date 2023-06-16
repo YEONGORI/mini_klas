@@ -64,11 +64,11 @@ public class UserService {
         }
     }
 
-    public String SignIn(final SignInUserRequest req) {
+    public String SignIn(final User req) {
         try {
             AtomicReference<String> tokenRef = new AtomicReference<>();
-            userRepository.findByUserId(req.user().getUserId()).ifPresentOrElse(user -> tokenRef.set(getJwtToken(user.getUserId(), user.getUserType())), () -> {
-                throw new UserIdNotFoundException("사용자 " + req.user().getUserId() + "가 존재하지 않습니다.");
+            userRepository.findByUserId(req.getUserId()).ifPresentOrElse(user -> tokenRef.set(getJwtToken(user.getUserId(), user.getUserType())), () -> {
+                throw new UserIdNotFoundException("사용자 " + req.getUserId() + "가 존재하지 않습니다.");
             });
             return tokenRef.get();
         } catch (JpaSystemException e) {
@@ -77,15 +77,16 @@ public class UserService {
         return null;
     }
 
-    public void KakaoSignIn(final SignInKakaoRequest req, final HttpServletResponse res) {
+    public String KakaoSignIn(final SignInKakaoRequest req) {
         try {
             String accessToken = getAccessToken(req.code());
             String nickname = getKakaoUserInfo(accessToken);
             User user = kakaoSignUp(req.userId(), nickname);
-            forceSignIn(user, res);
+            return forceSignIn(user);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        return "";
     }
 
     private static String getJwtToken(Integer userId, UserType userType) {
@@ -114,15 +115,16 @@ public class UserService {
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", CLIENT_ID);
-        body.add("client_secret", CLIENT_SECRET);
-        body.add("redirect_uri", REDIRECT_URI);
+        body.add("client_id", "2ab2ae3d4a5108ea9081265e2802998b");
+        body.add("client_secret", "2klBe3aBkpCMh07z2mRtdVpok13GHdEd");
+        body.add("redirect_uri", "http://localhost:3000/users/callback");
         body.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();
+
         ResponseEntity<String> res = rt.exchange(
-                TOKEN_URI,
+                "https://kauth.kakao.com/oauth/token",
                 HttpMethod.POST,
                 kakaoTokenRequest,
                 String.class
@@ -142,8 +144,8 @@ public class UserService {
         HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> res = rt.exchange(
-                USER_INFO_URI,
-                HttpMethod.POST,
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.GET,
                 kakaoUserInfoRequest,
                 String.class
         );
@@ -160,7 +162,8 @@ public class UserService {
 
         if (user == null) {
             String password = UUID.randomUUID().toString();
-            UserType userType = STUDENT;
+            UserType userType = UserType.STUDENT;
+
             userRepository.save(User.builder()
                     .name(nickname)
                     .userId(userId)
@@ -171,10 +174,10 @@ public class UserService {
         return user;
     }
 
-    private static void forceSignIn(User user, HttpServletResponse res) {
+    private static String forceSignIn(User user) {
         AtomicReference<String> tokenRef = new AtomicReference<>();
-        tokenRef.set(getJwtToken(user.getUserId(), STUDENT));
-        res.addHeader("Authorization", "BEARER " + tokenRef.get());
+        tokenRef.set(getJwtToken(user.getUserId(), UserType.STUDENT));
+        return tokenRef.get();
     }
     public int checkId(final int userid){
         AtomicInteger check = new AtomicInteger();
