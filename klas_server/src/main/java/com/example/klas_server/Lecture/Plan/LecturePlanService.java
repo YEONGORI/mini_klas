@@ -1,3 +1,4 @@
+
 package com.example.klas_server.Lecture.Plan;
 
 import org.springframework.beans.factory.annotation.Autowired;

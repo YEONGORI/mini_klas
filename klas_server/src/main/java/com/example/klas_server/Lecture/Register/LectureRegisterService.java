@@ -30,7 +30,7 @@ public class LectureRegisterService {
         int lectureid = data.getLectureDTO().getId();
         int userid = data.getUser().getUserId();
 
-        LectureDTO targetlecture = lectureRepository.findById(lectureid);
+        LectureDTO targetlecture = lectureRepository.findById(lectureid).get();
         Optional<User> check = userRepository.findByUserId(userid);
         User user = check.get();
         List<LectureRegisterDTO> lecturelist = lectureRegisterRepository.findByUser(user);

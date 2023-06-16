@@ -10,6 +10,7 @@ import org.checkerframework.checker.units.qual.C;
 @Table(name = "score")
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Score {
@@ -19,7 +20,7 @@ public class Score {
     private String semester;
     private String grade;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lectureid")
+    @JoinColumn(name = "lecture_id", referencedColumnName = "id")
     private LectureDTO lectureDTO;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,2 +1,4 @@
-package com.example.klas_server.Scehdule;public class ScheduleRepository {
+package com.example.klas_server.Scehdule;
+
+public class ScheduleRepository {
 }

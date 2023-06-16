@@ -13,9 +13,6 @@ import java.util.List;
 @RequestMapping("/lecture")
 @CrossOrigin
 public class LectureController {
-
-
-
     private final LectureService lectureService;
 
     @GetMapping("/list")
