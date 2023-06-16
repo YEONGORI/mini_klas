@@ -40,6 +40,7 @@ public class ScoreService {
             lecture.put(s.getSemester(), list);
         }
         List<GetScoreResponse> list = new ArrayList<>();
+        return null;//////////////////////////////////////////////
     }
 
     public void SetUserScore(SetScoreRequest req) {
