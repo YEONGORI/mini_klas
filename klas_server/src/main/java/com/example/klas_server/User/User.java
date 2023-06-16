@@ -1,5 +1,6 @@
 package com.example.klas_server.User;
 
+import com.example.klas_server.Attandance.Attandance;
 import com.example.klas_server.Board.BoardDTO;
 import com.example.klas_server.Lecture.Register.LectureRegisterDTO;
 import jakarta.persistence.*;
@@ -30,6 +31,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<BoardDTO> BoardDTOList;
+
+    @OneToMany(mappedBy = "user")
+    private List<Attandance> attandanceList;
 //
 //    public User(final String name, final Integer userId, final String password, final UserType userType) {
 //        Assert.hasText(name, "이름은 필수입니다.");

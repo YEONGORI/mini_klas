@@ -77,6 +77,10 @@ public class UserService {
         return null;
     }
 
+    public String findUserNmae(final Integer userId) {
+        return userRepository.findByUserId(userId).get().getName();
+    }
+
     public String KakaoSignIn(final SignInKakaoRequest req) {
         try {
             String accessToken = getAccessToken(req.code());

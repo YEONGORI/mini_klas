@@ -27,7 +27,6 @@ public class LectureRegisterService {
 
     public int register(LectureRegisterDTO data)
     {
-
         int lectureid = data.getLectureDTO().getId();
         int userid = data.getUser().getUserId();
 

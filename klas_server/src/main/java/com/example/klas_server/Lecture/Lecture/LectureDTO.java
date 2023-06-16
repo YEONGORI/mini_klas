@@ -1,16 +1,21 @@
 package com.example.klas_server.Lecture.Lecture;
 
+import com.example.klas_server.Attandance.Attandance;
 import com.example.klas_server.Lecture.Register.LectureRegisterDTO;
+import com.example.klas_server.Score.Score;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.swing.*;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "lecture")
 public class LectureDTO {
     @Id
@@ -29,6 +34,8 @@ public class LectureDTO {
     @Column(name = "limit")
     private int limit;
 
+    private String major;
+
     @Column(name = "professor")
     private String professor;
 
@@ -44,14 +51,9 @@ public class LectureDTO {
     @OneToMany(mappedBy = "lectureDTO", fetch = FetchType.LAZY)
     private List<LectureRegisterDTO> lectureRegisterDTOList;
 
-    public LectureDTO(String lecturename, String time, String type, Integer limit, String professor, String credit, String contact, Integer coursequota) {
-        this.lecturename = lecturename;
-        this.time = time;
-        this.type = type;
-        this.limit = limit;
-        this.professor = professor;
-        this.credit = credit;
-        this.contact = contact;
-        this. coursequota = coursequota;
-    }
+    @OneToMany(mappedBy = "lectureDTO", fetch = FetchType.LAZY)
+    private List<Score> lectureScoreList;
+
+    @OneToMany(mappedBy = "lectureDTO")
+    private List<Attandance> attandanceList;
 }

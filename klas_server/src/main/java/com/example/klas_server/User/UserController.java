@@ -11,6 +11,8 @@ import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -55,12 +57,17 @@ class UserController {
     }
 
     @PostMapping(value = "/kakao")
-
     public ResponseEntity<Void> SignInKakao(@RequestBody final SignInKakaoRequest req) {
         String token = userService.KakaoSignIn(req);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
         return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).build();
+    }
+
+    @GetMapping(value = "/name")
+    public ResponseEntity<String> findUserName(@RequestBody final Map<String, Integer> req) {
+        String name = userService.findUserNmae(req.get("userId"));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(name);
     }
 
     @PostMapping("/me")
